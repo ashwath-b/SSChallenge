@@ -35,9 +35,9 @@ module MailgunWebhook
   def self.extract_email_list(type)
     emails = []
     result = RestClient.get "https://api:#{ENV['mailgun-api-key']}@api.mailgun.net/v3/#{ENV['mailgun-domain']}/#{type}"
-    loop do
+    while result["paging"]["next"] != nil
       emails << result["items"][0]["address"]
-      break if result["paging"]["next"] == nil
+      result = RestClient.get result["paging"]["next"]
     end
     emails
   end
