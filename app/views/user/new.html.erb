@@ -1,0 +1,15 @@
+<%= form_for @user, :url => create_path, :method => :post do |f| %>
+  <div class="form-group">
+    <div class="row">
+    	<%= f.label :email, 'Email', class: 'control-label col-md-2' %>
+  		<div class="col-md-6">
+  			<%= f.text_field :email, :placeholder => 'Email', :class => 'form-control' %>
+  		</div>
+    </div>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="col-md-2"></div>
+    <%= submit_tag "Send Invite", class: "btn btn-primary" %>
+  </div>
+<% end %>

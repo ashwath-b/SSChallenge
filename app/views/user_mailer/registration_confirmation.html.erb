@@ -1,0 +1,2 @@
+Welcome <%= @user.name %>,
+Please activate your account by clicking <%= link_to "here", "#{root_url}confirm_email/#{@user.confirmation_token}" %>.
