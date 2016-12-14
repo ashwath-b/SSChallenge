@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root to: 'user#confirm_email'
   match '/confirm_email/:token', to: 'user#confirm_email', via: 'get'
   match '/new', to: 'user#new', via: 'get'
+  match '/index', to: 'user#index', via: 'get'
   match '/create', to: 'user#create', via: 'post'
   match '/bounce', to: 'hook#bounce', via: 'post'
   match '/complaint', to: 'hook#complaint', via: 'post'

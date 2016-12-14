@@ -11,12 +11,12 @@ class HookController < ApplicationController
   end
 
   def unsubscribe
-    p params[:recipient]
+    # p params[:recipient]
     render nothing: true
   end
 
   def complaint
-    p params[:recipient]
+    # p params[:recipient]
     render nothing: true
   end
 
@@ -27,7 +27,7 @@ class HookController < ApplicationController
 
   private
   def verify_mailgun
-    result = MailgunWebhook.verify_authenticity("key-34dc300a327bc5bb51e1351d017a8726", params[:token], params[:timestamp], params[:signature])
+    result = MailgunWebhook.verify_authenticity(ENV['mailgun-api-key'], params[:token], params[:timestamp], params[:signature])
     unless !result
       return false
     end

@@ -8,6 +8,6 @@ class UserMailer < ActionMailer::Base
 
   def activation_reminder(user_id)
     @user = User.find(user_id)
-    mail(to: @user.email, subject: 'Waiting to from you')
+    mail(to: @user.email, subject: 'Waiting for activation from you')
   end
 end

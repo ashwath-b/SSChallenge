@@ -2,6 +2,8 @@ class UserController < ApplicationController
 
   def index
     @users = User.all
+    @confirmed_users = @users.where(:confirmation_token => nil)
+    @unconfirmed_users = @users.where('confirmation_token is not ?', nil)
   end
 
   def new

@@ -10,11 +10,6 @@ class User < ActiveRecord::Base
     save!(:validate => false)
   end
 
-  def validate_email
-    result = RestClient.get "https://api:pubkey-b45f050b03c1dd167a39a933dcc5a15a@api.mailgun.net/v3/address/validate?#{self.email}"
-    result["is_valid"] == true
-  end
-
   private
   def generate_token
     if self.confirmation_token.blank?

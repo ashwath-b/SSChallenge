@@ -1,1 +1,8 @@
-Number of confirmed users is : <%= @users.count %>
+<div class="row">
+  <div class="offset-md-3 col-md-3">Number of confirmed users is </div>
+  <div class="col-md-2">: <%= @confirmed_users.count %></div>
+</div>
+<div class="row">
+  <div class="col-md-3 offset-md-3">Number of unconfirmed users is </div>
+  <div class="col-md-2">: <%= @unconfirmed_users.count %></div>
+</div>
