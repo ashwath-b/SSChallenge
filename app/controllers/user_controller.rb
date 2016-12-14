@@ -13,6 +13,7 @@ class UserController < ApplicationController
   def create
     @user = User.new(user_params)
     if MailgunWebhook.is_valid_email(@user.email) && @user.save
+      @user.update_attribute(:valid_email => true)
       MailgunTask.activation_email(@user.id)
       flash[:success] = "Please confirm your email address to continue"
     else

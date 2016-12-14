@@ -7,16 +7,22 @@ class HookController < ApplicationController
 
   def bounce
     CsvWrite.write_csv(params[:recipient], params[:ip], params[:subject], params[:type])
+    user = User.where(:email => params[:recipient])
+    user.update_attribute(:valid_email => false) if user.present?
     render nothing: true
   end
 
   def unsubscribe
     # p params[:recipient]
+    user = User.where(:email => params[:recipient])
+    user.update_attribute(:valid_email => false) if user.present?
     render nothing: true
   end
 
   def complaint
     # p params[:recipient]
+    user = User.where(:email => params[:recipient])
+    user.update_attribute(:valid_email => false) if user.present?
     render nothing: true
   end
 

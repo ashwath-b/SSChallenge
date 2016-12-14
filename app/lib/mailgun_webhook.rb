@@ -8,6 +8,8 @@ module MailgunWebhook
   end
 
   def self.suppressed_emails
+    # We could even query user table where valid_email is false
+    # emails = User.where(:valid_email => false).pluck(:email)
      emails = get_bounces + get_unsubscribes + get_complaints
   end
 

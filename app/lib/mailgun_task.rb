@@ -5,9 +5,11 @@ module MailgunTask
   end
 
   def self.activation_reminder
+    suppressed_email_list = MailgunWebhook.suppressed_emails
+    # suppressed_email_list = User.where(:valid_email => false).pluck(:email)
     @users = User.where(created_at: DateTime.now-3.days..DateTime.now-2.days)
     @users.each do |user|
-      UserMailer.activation_reminder(id).deliver unless on_suppression_list?(user.email)
+      UserMailer.activation_reminder(id).deliver unless suppressed_email_list.include?(user.email)
     end
   end
 
