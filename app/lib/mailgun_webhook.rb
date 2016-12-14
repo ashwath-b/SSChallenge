@@ -12,21 +12,15 @@ module MailgunWebhook
   end
 
   def self.get_bounces
-    # mg_client = Mailgun::Client.new("your-api-key")
-    # mg_events = Mailgun::Events.new(mg_client, "your-domain")
-    # result = mg_events.get({'limit' => 25, 'event' => 'bounces'})
-    from = "https://api:#{ENV['mailgun-api-key']}@api.mailgun.net/v3/#{ENV['mailgun-domain']}/bounces"
-    email = extract_email_list(from)
+    emails = extract_email_list("bounces")
   end
 
   def self.get_unsubscribes
-    from = "https://api:#{ENV['mailgun-api-key']}@api.mailgun.net/v3/#{ENV['mailgun-domain']}/unsubscribes"
-    email = extract_email_list(result)
+    emails = extract_email_list("unsubscribes")
   end
 
   def self.get_complaints
-    from = "https://api:#{ENV['mailgun-api-key']}@api.mailgun.net/v3/#{ENV['mailgun-domain']}/complaints"
-    email = extract_email_list(result)
+    emails = extract_email_list("complaints")
   end
 
   def self.is_valid_email(email)
@@ -36,14 +30,14 @@ module MailgunWebhook
     result["is_valid"] == true
   end
 
-  def self.extract_email_list(from)
-    email = []
-    result = RestClient.get from
+  def self.extract_email_list(type)
+    emails = []
+    result = RestClient.get "https://api:#{ENV['mailgun-api-key']}@api.mailgun.net/v3/#{ENV['mailgun-domain']}/#{type}"
     loop do
-      email << result["items"][0]["address"]
+      emails << result["items"][0]["address"]
       break if result["paging"]["next"] == nil
     end
-    email
+    emails
   end
 
 end

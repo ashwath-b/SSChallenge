@@ -12,8 +12,7 @@ module MailgunTask
   end
 
   def self.email_history
-    from = "https://api:#{ENV['mailgun-api-key']}@api.mailgun.net/v3/#{ENV['mailgun-domain']}/delivered"
-    sent_emails = MailgunWebhook.extract_email_list(from)
+    sent_emails = MailgunWebhook.extract_email_list("delivered")
   end
 
   def self.on_suppression_list?(email)
